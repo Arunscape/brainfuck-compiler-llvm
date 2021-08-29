@@ -1,7 +1,14 @@
 #![warn(clippy::all)]
 
 use clap::Arg;
-use inkwell::{OptimizationLevel, builder::Builder, context::Context, execution_engine::{ExecutionEngine, JitFunction}, module::{Linkage, Module}, targets::{InitializationConfig, Target}};
+use inkwell::{
+    builder::Builder,
+    context::Context,
+    execution_engine::{ExecutionEngine, JitFunction},
+    module::{Linkage, Module},
+    targets::{InitializationConfig, Target},
+    OptimizationLevel,
+};
 use std::{error::Error, fs};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -16,8 +23,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .value_name("OUTPUT_FILE")
                 .takes_value(true),
         )
-        .arg(Arg::with_name("asm")
-             .help("Output in human readable assembly"))
+        .arg(Arg::with_name("asm").help("Output in human readable assembly"))
         .get_matches();
 
     let output = matches.value_of("output");
@@ -38,13 +44,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let basic_block = context.append_basic_block(main_fn, "entry");
     builder.position_at_end(basic_block);
 
-
-
     builder.build_return(Some(&i64_type.const_zero()));
     Target::initialize_all(&InitializationConfig::default());
-
-
-
 
     Ok(())
 }
