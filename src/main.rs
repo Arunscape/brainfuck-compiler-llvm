@@ -7,7 +7,7 @@ use inkwell::{
     execution_engine::{ExecutionEngine, JitFunction},
     module::{Linkage, Module},
     targets::{CodeModel, FileType, InitializationConfig, RelocMode, Target, TargetMachine},
-    OptimizationLevel,
+    AddressSpace, OptimizationLevel,
 };
 use std::{error::Error, fs};
 
